@@ -24,13 +24,14 @@ jobs:
           package-manager-cache: false
       # Trusted publishing needs npm 11.5.1 or later.
       - run: npm install -g npm@11.13.0
-      - name: The release tag must match package.json and server.json
+      - name: The release tag must match package.json, server.json and manifest.json
         env:
           TAG: ${{ github.event.release.tag_name }}
         run: |
           v=$(node -p 'require("./package.json").version')
           s=$(node -p 'require("./server.json").version')
-          if [ "$TAG" != "v$v" ] || [ "$s" != "$v" ]; then echo "Tag $TAG, package.json $v and server.json $s must agree"; exit 1; fi
+          m=$(node -p 'require("./manifest.json").version')
+          if [ "$TAG" != "v$v" ] || [ "$s" != "$v" ] || [ "$m" != "$v" ]; then echo "Tag $TAG, package.json $v, server.json $s and manifest.json $m must agree"; exit 1; fi
       - run: npm ci
       - run: npm test
       # The first version was published by hand (npm needs the package to exist before a trusted
@@ -60,3 +61,22 @@ jobs:
         run: |
           mcp-publisher login github-oidc
           mcp-publisher publish
+
+  # The one-click Claude Desktop extension, attached to the GitHub release.
+  extension:
+    needs: npm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to attach the file to the release
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: bash scripts/build-mcpb.sh
+      - name: Attach to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: gh release upload "$TAG" home-net-doctor-*.mcpb --clobber

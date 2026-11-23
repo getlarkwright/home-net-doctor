@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<root xmlns="urn:schemas-upnp-org:device-1-0">
+<specVersion><major>1</major><minor>0</minor></specVersion>
+<device>
+<deviceType>urn:schemas-upnp-org:device:InternetGatewayDevice:1</deviceType>
+<friendlyName>Archer AX21</friendlyName>
+<manufacturer>TP-Link</manufacturer>
+<manufacturerURL>https://www.tp-link.com</manufacturerURL>
+<modelDescription>AX1800 Dual-Band Wi-Fi 6 Router</modelDescription>
+<modelName>Archer AX21</modelName>
+<modelNumber>1.0</modelNumber>
+<UDN>uuid:00000000-0000-0000-0000-000000000001</UDN>
+<deviceList><device>
+<deviceType>urn:schemas-upnp-org:device:WANDevice:1</deviceType>
+<friendlyName>WANDevice</friendlyName>
+<manufacturer>MiniUPnP</manufacturer>
+<modelName>WAN Device</modelName>
+<deviceList><device>
+<deviceType>urn:schemas-upnp-org:device:WANConnectionDevice:1</deviceType>
+<serviceList><service>
+<serviceType>urn:schemas-upnp-org:service:WANIPConnection:1</serviceType>
+<controlURL>/ctl/IPConn</controlURL>
+</service></serviceList>
+</device></deviceList>
+</device></deviceList>
+</device>
+</root>

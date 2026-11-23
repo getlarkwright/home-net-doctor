@@ -29,5 +29,6 @@ jobs:
       - name: Connection check on this runner
         run: node src/index.js check
       - run: node src/index.js wifi
+      - run: node src/index.js router
       - run: node src/index.js --version
       - run: npm pack --dry-run

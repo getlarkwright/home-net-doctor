@@ -1,0 +1,56 @@
+{
+  "manifest_version": "0.3",
+  "name": "home-net-doctor",
+  "display_name": "Home Net Doctor",
+  "version": "0.2.0",
+  "description": "Ask why the internet is slow. Checks Wi-Fi, router, internet company and DNS from your computer and explains it in plain words.",
+  "long_description": "Ask Claude \"why is my internet slow?\" and get a real answer. Home Net Doctor runs quick, read-only tests from your own computer and says where the problem is: your Wi-Fi signal, your router, your internet company, DNS, a sign-in page, a VPN, or one website that is down. Then it says what to do about it.\n\nIt can also check your router: who made it, which model it is, whether UPnP is on, and whether that model is on the US government's list of router security holes that criminals are using (CISA KEV, a copy bundled with each version).\n\nIt changes no settings, needs no admin password, never logs into your router, and sends no telemetry. The connection check contacts only Cloudflare and Google's public services; the Wi-Fi and router checks stay inside your home network.",
+  "author": {
+    "name": "Larkwright LLC",
+    "url": "https://github.com/getlarkwright"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getlarkwright/home-net-doctor"
+  },
+  "homepage": "https://github.com/getlarkwright/home-net-doctor",
+  "documentation": "https://github.com/getlarkwright/home-net-doctor#readme",
+  "support": "https://github.com/getlarkwright/home-net-doctor/issues",
+  "icon": "assets/icon.png",
+  "server": {
+    "type": "node",
+    "entry_point": "src/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/src/index.js"],
+      "env": {}
+    }
+  },
+  "tools": [
+    {
+      "name": "check_connection",
+      "description": "Find out why the internet is slow or not working, and where the problem is: Wi-Fi, router, internet company, DNS, a sign-in page, a VPN, or nothing at all."
+    },
+    {
+      "name": "check_wifi",
+      "description": "Wi-Fi signal strength with a plain rating, band, channel, link speed and how crowded the channel is."
+    },
+    {
+      "name": "check_website",
+      "description": "Is it this website, or my internet? Checks one site's front page from this computer."
+    },
+    {
+      "name": "check_router",
+      "description": "Router safety check: maker, model, UPnP, and whether the model is on CISA's list of exploited router security holes."
+    }
+  ],
+  "tools_generated": false,
+  "keywords": ["wifi", "internet", "slow internet", "router", "dns", "network", "troubleshooting", "home network"],
+  "license": "MIT",
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "node": ">=20.0.0"
+    }
+  }
+}

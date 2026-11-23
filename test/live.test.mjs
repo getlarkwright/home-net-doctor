@@ -65,7 +65,7 @@ function mcp(messages) {
   });
 }
 
-test("the MCP server lists its three read-only tools and answers calls", async () => {
+test("the MCP server lists its four read-only tools and answers calls", async () => {
   const r = await mcp([
     { id: 1, method: "initialize", params: { protocolVersion: "2025-06-18", capabilities: {}, clientInfo: { name: "test", version: "0" } } },
     { method: "notifications/initialized" },
@@ -75,7 +75,7 @@ test("the MCP server lists its three read-only tools and answers calls", async (
   ]);
   assert.equal(r.get(1).result.serverInfo.name, "home-net-doctor");
   const tools = r.get(2).result.tools;
-  assert.deepEqual(tools.map((t) => t.name), ["check_connection", "check_wifi", "check_website"]);
+  assert.deepEqual(tools.map((t) => t.name), ["check_connection", "check_wifi", "check_website", "check_router"]);
   assert.ok(tools.every((t) => t.annotations.readOnlyHint === true));
   assert.match(r.get(3).result.content[0].text, /^Home Net Doctor: Wi-Fi check/);
   assert.match(r.get(4).result.content[0].text, /Only web addresses/);

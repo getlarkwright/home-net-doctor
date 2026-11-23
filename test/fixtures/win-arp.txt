@@ -1,0 +1,4 @@
+
+Interface: 192.0.2.50 --- 0xc
+  Internet Address      Physical Address      Type
+  192.0.2.1             50-c7-bf-12-34-56     dynamic

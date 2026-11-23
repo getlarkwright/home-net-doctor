@@ -3,7 +3,7 @@
   "name": "io.github.getlarkwright/home-net-doctor",
   "title": "Home Net Doctor",
   "description": "Why is my internet slow? Checks Wi-Fi, router, ISP and DNS from your computer. Plain words.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "repository": {
     "url": "https://github.com/getlarkwright/home-net-doctor",
     "source": "github"
@@ -12,7 +12,7 @@
     {
       "registryType": "npm",
       "identifier": "home-net-doctor",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "transport": {
         "type": "stdio"
       }

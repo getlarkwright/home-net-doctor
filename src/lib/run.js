@@ -13,6 +13,7 @@ const PROGRAMS = {
     win32: [`${SYS32}PING.EXE`],
   },
   netstat: { darwin: ["/usr/sbin/netstat"] },
+  arp: { darwin: ["/usr/sbin/arp"], win32: [`${SYS32}ARP.EXE`] },
   system_profiler: { darwin: ["/usr/sbin/system_profiler"] },
   route: { win32: [`${SYS32}ROUTE.EXE`] },
   netsh: { win32: [`${SYS32}netsh.exe`] },

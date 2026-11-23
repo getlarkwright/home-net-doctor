@@ -1,7 +1,8 @@
 // Every address outside the home network that the connection check contacts. Nothing else is
-// contacted, apart from a website the person asks check_website about. Nothing is uploaded: these
-// are pings, DNS questions, one plain-HTTP request that should come back empty, and one secure
-// connection that is closed as soon as it opens.
+// contacted, apart from a website the person asks check_website about; check_wifi and
+// check_router stay inside the home network. Nothing is uploaded: these are pings, DNS questions,
+// one plain-HTTP request that should come back empty, and one secure connection that is closed
+// as soon as it opens.
 
 /** Pinged to measure the leg from the router out to the internet. Both are large anycast DNS services. */
 export const INTERNET_HOSTS = [

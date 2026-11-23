@@ -9,6 +9,7 @@
 //   home-net-doctor check        connection check, printed in the terminal
 //   home-net-doctor wifi         Wi-Fi check
 //   home-net-doctor site <url>   website check
+//   home-net-doctor router       router safety check
 import { createRequire } from "node:module";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -17,6 +18,7 @@ import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprot
 import { gatherAll, getWifi } from "./lib/gather.js";
 import { renderConnection, renderWifi } from "./lib/report.js";
 import { checkWebsite, renderWebsite } from "./lib/website.js";
+import { checkRouter, renderRouter } from "./lib/router.js";
 
 const VERSION = createRequire(import.meta.url)("../package.json").version;
 
@@ -63,6 +65,18 @@ export const TOOLS = [
     annotations: { title: "Check a website", readOnlyHint: true, openWorldHint: true },
     run: async (a) => renderWebsite(await checkWebsite(typeof a.site === "string" ? a.site : "")),
   },
+  {
+    name: "check_router",
+    description:
+      "Safety check of the home router: who made it and which model it is (from its own UPnP announcement and its " +
+      "network maker code), whether UPnP is on, and whether that model is on CISA's list of router security holes " +
+      "that criminals are actively using (a copy bundled with this version). Stays inside the home network: it never " +
+      "logs into the router, never tries a password, and contacts nothing on the internet. " +
+      PLAIN,
+    inputSchema: { type: "object", properties: {} },
+    annotations: { title: "Check my router's safety", readOnlyHint: true, openWorldHint: false },
+    run: async () => renderRouter(await checkRouter()),
+  },
 ];
 
 async function serve() {
@@ -91,6 +105,7 @@ In a terminal:
   npx -y home-net-doctor check        connection check (10 to 25 seconds)
   npx -y home-net-doctor wifi         Wi-Fi signal report
   npx -y home-net-doctor site <url>   is it this website or my internet?
+  npx -y home-net-doctor router       router safety check
 
 Read-only. Changes no settings, needs no admin rights, sends no telemetry.
 https://github.com/getlarkwright/home-net-doctor`;
@@ -104,6 +119,7 @@ else if (cmd === "check") {
   process.stderr.write("Checking (10 to 25 seconds)...\n");
   print(await TOOLS[0].run({}));
 } else if (cmd === "wifi") print(await TOOLS[1].run({}));
+else if (cmd === "router") print(await TOOLS[3].run({}));
 else if (cmd === "site") {
   if (!rest[0]) {
     print("Usage: home-net-doctor site <website>");

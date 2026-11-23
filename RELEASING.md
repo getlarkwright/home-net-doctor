@@ -1,14 +1,16 @@
 # Releasing
 
 Publishing runs from GitHub Actions (`.github/workflows/publish.yml`): tests, then npm through
-trusted publishing (no npm token stored anywhere), then the entry in the official MCP Registry.
+trusted publishing (no npm token stored anywhere), then the entry in the official MCP Registry, and the
+Claude Desktop extension (`home-net-doctor-<version>.mcpb`, built by `scripts/build-mcpb.sh`) attached to the release.
 
 ## Each release
 
-1. Bump `version` in `package.json`, in both places in `server.json`, and in the README install lines, then commit and push to `main`.
-2. Wait for CI to pass on Linux, macOS and Windows.
-3. Publish a GitHub release whose tag is `v` plus that version, for example `v0.1.1`. Prereleases are skipped.
-4. Check it: `npm view home-net-doctor version`, then `npx -y home-net-doctor@<version> --version` from an
+1. Refresh the router list from CISA's catalog: `node scripts/build-router-kev.mjs`, and commit `src/data/router-kev.json` if it changed.
+2. Bump `version` in `package.json`, `manifest.json`, both places in `server.json`, and the README install lines, then commit and push to `main`.
+3. Wait for CI to pass on Linux, macOS and Windows.
+4. Publish a GitHub release whose tag is `v` plus that version, for example `v0.1.1`. Prereleases are skipped.
+5. Check it: `npm view home-net-doctor version`, then `npx -y home-net-doctor@<version> --version` from an
    empty folder, and the server's entry in the MCP Registry.
 
 ## First version and the one-time npm setup

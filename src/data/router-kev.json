@@ -1,0 +1,655 @@
+{
+ "source": "CISA Known Exploited Vulnerabilities catalog",
+ "catalogVersion": "2026.11.23",
+ "makers": {
+  "D-Link": [
+   "D-LINK",
+   "DLINK"
+  ],
+  "TP-Link": [
+   "TP-LINK",
+   "TPLINK"
+  ],
+  "NETGEAR": [
+   "NETGEAR"
+  ],
+  "Linksys": [
+   "LINKSYS"
+  ],
+  "ASUS": [
+   "ASUS",
+   "ASUSTEK"
+  ],
+  "Zyxel": [
+   "ZYXEL"
+  ],
+  "Tenda": [
+   "TENDA"
+  ],
+  "DrayTek": [
+   "DRAYTEK"
+  ],
+  "Netis": [
+   "NETIS"
+  ],
+  "Ubiquiti": [
+   "UBIQUITI",
+   "UBNT"
+  ],
+  "MikroTik": [
+   "MIKROTIK"
+  ],
+  "Edimax": [
+   "EDIMAX"
+  ],
+  "TOTOLINK": [
+   "TOTOLINK"
+  ],
+  "Belkin": [
+   "BELKIN"
+  ],
+  "Arris": [
+   "ARRIS"
+  ],
+  "Huawei": [
+   "HUAWEI"
+  ],
+  "ZTE": [
+   "ZTE"
+  ],
+  "Cisco": [
+   "CISCO"
+  ]
+ },
+ "entries": [
+  {
+   "maker": "ASUS",
+   "product": "Routers",
+   "cve": "CVE-2021-32030",
+   "added": "2025-06-02",
+   "ransomware": false,
+   "models": [
+    "GTAC2900"
+   ]
+  },
+  {
+   "maker": "ASUS",
+   "product": "RT-AX55 Routers",
+   "cve": "CVE-2023-39780",
+   "added": "2025-06-02",
+   "ransomware": false,
+   "models": [
+    "RTAX55"
+   ]
+  },
+  {
+   "maker": "Cisco",
+   "product": "Small Business RV Series Routers",
+   "cve": "CVE-2023-20118",
+   "added": "2025-03-03",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "Cisco",
+   "product": "Small Business RV160, RV260, RV340, and RV345 Series Routers",
+   "cve": "CVE-2022-20708",
+   "added": "2022-03-03",
+   "ransomware": false,
+   "models": [
+    "RV160",
+    "RV260",
+    "RV340",
+    "RV345"
+   ]
+  },
+  {
+   "maker": "Cisco",
+   "product": "Small Business RV160, RV260, RV340, and RV345 Series Routers",
+   "cve": "CVE-2022-20703",
+   "added": "2022-03-03",
+   "ransomware": false,
+   "models": [
+    "RV160",
+    "RV260",
+    "RV340",
+    "RV345"
+   ]
+  },
+  {
+   "maker": "Cisco",
+   "product": "Small Business RV160, RV260, RV340, and RV345 Series Routers",
+   "cve": "CVE-2022-20701",
+   "added": "2022-03-03",
+   "ransomware": false,
+   "models": [
+    "RV160",
+    "RV260",
+    "RV340",
+    "RV345"
+   ]
+  },
+  {
+   "maker": "Cisco",
+   "product": "Small Business RV160, RV260, RV340, and RV345 Series Routers",
+   "cve": "CVE-2022-20700",
+   "added": "2022-03-03",
+   "ransomware": false,
+   "models": [
+    "RV160",
+    "RV260",
+    "RV340",
+    "RV345"
+   ]
+  },
+  {
+   "maker": "Cisco",
+   "product": "Small Business RV160, RV260, RV340, and RV345 Series Routers",
+   "cve": "CVE-2022-20699",
+   "added": "2022-03-03",
+   "ransomware": false,
+   "models": [
+    "RV160",
+    "RV260",
+    "RV340",
+    "RV345"
+   ]
+  },
+  {
+   "maker": "Cisco",
+   "product": "Small Business RV320 and RV325 Dual Gigabit WAN VPN Routers",
+   "cve": "CVE-2019-1652",
+   "added": "2022-03-03",
+   "ransomware": false,
+   "models": [
+    "RV320",
+    "RV325"
+   ]
+  },
+  {
+   "maker": "Cisco",
+   "product": "Small Business RV320 and RV325 Routers",
+   "cve": "CVE-2019-1653",
+   "added": "2021-11-03",
+   "ransomware": false,
+   "models": [
+    "RV320",
+    "RV325"
+   ]
+  },
+  {
+   "maker": "D-Link",
+   "product": "DIR-823X",
+   "cve": "CVE-2025-29635",
+   "added": "2026-04-24",
+   "ransomware": false,
+   "models": [
+    "DIR823X"
+   ]
+  },
+  {
+   "maker": "D-Link",
+   "product": "Routers",
+   "cve": "CVE-2022-37055",
+   "added": "2025-12-08",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "D-Link",
+   "product": "DIR-859 Router",
+   "cve": "CVE-2024-0769",
+   "added": "2025-06-25",
+   "ransomware": false,
+   "models": [
+    "DIR859"
+   ]
+  },
+  {
+   "maker": "D-Link",
+   "product": "DIR-820 Router",
+   "cve": "CVE-2023-25280",
+   "added": "2024-09-30",
+   "ransomware": false,
+   "models": [
+    "DIR820"
+   ]
+  },
+  {
+   "maker": "D-Link",
+   "product": "DIR-605 Router",
+   "cve": "CVE-2021-40655",
+   "added": "2024-05-16",
+   "ransomware": false,
+   "models": [
+    "DIR605"
+   ]
+  },
+  {
+   "maker": "D-Link",
+   "product": "DIR-600 Router",
+   "cve": "CVE-2014-100005",
+   "added": "2024-05-16",
+   "ransomware": false,
+   "models": [
+    "DIR600"
+   ]
+  },
+  {
+   "maker": "D-Link",
+   "product": "DSL-2750B Devices",
+   "cve": "CVE-2016-20017",
+   "added": "2024-01-08",
+   "ransomware": false,
+   "models": [
+    "DSL2750B"
+   ]
+  },
+  {
+   "maker": "D-Link",
+   "product": "DIR-859 Router",
+   "cve": "CVE-2019-17621",
+   "added": "2023-06-29",
+   "ransomware": false,
+   "models": [
+    "DIR859"
+   ]
+  },
+  {
+   "maker": "D-Link",
+   "product": "DWL-2600AP Access Point",
+   "cve": "CVE-2019-20500",
+   "added": "2023-06-29",
+   "ransomware": false,
+   "models": [
+    "DWL2600AP"
+   ]
+  },
+  {
+   "maker": "D-Link",
+   "product": "DIR-820L",
+   "cve": "CVE-2022-26258",
+   "added": "2022-09-08",
+   "ransomware": false,
+   "models": [
+    "DIR820L"
+   ]
+  },
+  {
+   "maker": "D-Link",
+   "product": "Multiple Routers",
+   "cve": "CVE-2018-6530",
+   "added": "2022-09-08",
+   "ransomware": true,
+   "models": []
+  },
+  {
+   "maker": "D-Link",
+   "product": "DIR-300 Router",
+   "cve": "CVE-2011-4723",
+   "added": "2022-09-08",
+   "ransomware": false,
+   "models": [
+    "DIR300"
+   ]
+  },
+  {
+   "maker": "D-Link",
+   "product": "Multiple Routers",
+   "cve": "CVE-2021-45382",
+   "added": "2022-04-04",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "D-Link",
+   "product": "DIR-610 Devices",
+   "cve": "CVE-2020-9377",
+   "added": "2022-03-25",
+   "ransomware": false,
+   "models": [
+    "DIR610"
+   ]
+  },
+  {
+   "maker": "D-Link",
+   "product": "Multiple Routers",
+   "cve": "CVE-2019-16920",
+   "added": "2022-03-25",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "D-Link",
+   "product": "DSL-2760U",
+   "cve": "CVE-2013-5223",
+   "added": "2022-03-25",
+   "ransomware": false,
+   "models": [
+    "DSL2760U"
+   ]
+  },
+  {
+   "maker": "D-Link",
+   "product": "DIR-645 Router",
+   "cve": "CVE-2015-2051",
+   "added": "2022-02-10",
+   "ransomware": false,
+   "models": [
+    "DIR645"
+   ]
+  },
+  {
+   "maker": "D-Link",
+   "product": "DIR-825 R1 Devices",
+   "cve": "CVE-2020-29557",
+   "added": "2021-11-03",
+   "ransomware": false,
+   "models": [
+    "DIR825"
+   ]
+  },
+  {
+   "maker": "DrayTek",
+   "product": "Vigor Routers",
+   "cve": "CVE-2024-12987",
+   "added": "2025-05-15",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "DrayTek",
+   "product": "Multiple Vigor Routers",
+   "cve": "CVE-2020-15415",
+   "added": "2024-09-30",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "DrayTek",
+   "product": "VigorConnect",
+   "cve": "CVE-2021-20124",
+   "added": "2024-09-03",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "DrayTek",
+   "product": "VigorConnect",
+   "cve": "CVE-2021-20123",
+   "added": "2024-09-03",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "DrayTek",
+   "product": "Multiple Vigor Routers",
+   "cve": "CVE-2020-8515",
+   "added": "2021-11-03",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "MikroTik",
+   "product": "RouterOS",
+   "cve": "CVE-2026-67279",
+   "added": "2026-09-25",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "MikroTik",
+   "product": "RouterOS",
+   "cve": "CVE-2026-86060",
+   "added": "2026-09-10",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "MikroTik",
+   "product": "RouterOS",
+   "cve": "CVE-2026-67277",
+   "added": "2026-09-10",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "MikroTik",
+   "product": "RouterOS",
+   "cve": "CVE-2018-7445",
+   "added": "2022-09-08",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "MikroTik",
+   "product": "RouterOS",
+   "cve": "CVE-2018-14847",
+   "added": "2021-12-01",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "NETGEAR",
+   "product": "Wireless Access Point (WAP) Devices",
+   "cve": "CVE-2016-1555",
+   "added": "2022-03-25",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "NETGEAR",
+   "product": "WNR2000v5 Router",
+   "cve": "CVE-2016-10174",
+   "added": "2022-03-25",
+   "ransomware": false,
+   "models": [
+    "WNR2000"
+   ]
+  },
+  {
+   "maker": "NETGEAR",
+   "product": "Wireless Router DGN2200",
+   "cve": "CVE-2017-6077",
+   "added": "2022-03-07",
+   "ransomware": false,
+   "models": [
+    "DGN2200"
+   ]
+  },
+  {
+   "maker": "NETGEAR",
+   "product": "Multiple Routers",
+   "cve": "CVE-2016-6277",
+   "added": "2022-03-07",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "Netis",
+   "product": "WF2419 Devices",
+   "cve": "CVE-2019-19356",
+   "added": "2021-11-03",
+   "ransomware": false,
+   "models": [
+    "WF2419"
+   ]
+  },
+  {
+   "maker": "Tenda",
+   "product": "AC11 Router",
+   "cve": "CVE-2021-31755",
+   "added": "2021-11-03",
+   "ransomware": false,
+   "models": [
+    "AC11"
+   ]
+  },
+  {
+   "maker": "Tenda",
+   "product": "AC1900 Router AC15 Model",
+   "cve": "CVE-2020-10987",
+   "added": "2021-11-03",
+   "ransomware": false,
+   "models": [
+    "AC15"
+   ]
+  },
+  {
+   "maker": "Tenda",
+   "product": "AC7, AC9, and AC10 Routers",
+   "cve": "CVE-2018-14558",
+   "added": "2021-11-03",
+   "ransomware": false,
+   "models": [
+    "AC7",
+    "AC9",
+    "AC10"
+   ]
+  },
+  {
+   "maker": "TP-Link",
+   "product": "TL-WR841N",
+   "cve": "CVE-2023-50224",
+   "added": "2025-09-03",
+   "ransomware": false,
+   "models": [
+    "TLWR841N"
+   ]
+  },
+  {
+   "maker": "TP-Link",
+   "product": "Multiple Routers",
+   "cve": "CVE-2025-9377",
+   "added": "2025-09-03",
+   "ransomware": false,
+   "models": [
+    "ARCHERC7",
+    "TLWR841N"
+   ]
+  },
+  {
+   "maker": "TP-Link",
+   "product": "TL-WA855RE",
+   "cve": "CVE-2020-24363",
+   "added": "2025-09-02",
+   "ransomware": false,
+   "models": [
+    "TLWA855RE"
+   ]
+  },
+  {
+   "maker": "TP-Link",
+   "product": "Multiple Routers",
+   "cve": "CVE-2023-33538",
+   "added": "2025-06-16",
+   "ransomware": false,
+   "models": [
+    "TLWR940N",
+    "TLWR841N",
+    "TLWR740N"
+   ]
+  },
+  {
+   "maker": "TP-Link",
+   "product": "Archer AX21",
+   "cve": "CVE-2023-1389",
+   "added": "2023-05-01",
+   "ransomware": false,
+   "models": [
+    "ARCHERAX21"
+   ]
+  },
+  {
+   "maker": "TP-Link",
+   "product": "Multiple Archer Devices",
+   "cve": "CVE-2015-3035",
+   "added": "2022-03-25",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "Ubiquiti",
+   "product": "AirOS",
+   "cve": "CVE-2010-5330",
+   "added": "2022-04-15",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "Zyxel",
+   "product": "DSL CPE Devices",
+   "cve": "CVE-2024-40891",
+   "added": "2025-02-11",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "Zyxel",
+   "product": "DSL CPE Devices",
+   "cve": "CVE-2024-40890",
+   "added": "2025-02-11",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "Zyxel",
+   "product": "EMG2926 Routers",
+   "cve": "CVE-2017-6884",
+   "added": "2023-09-18",
+   "ransomware": true,
+   "models": [
+    "EMG2926"
+   ]
+  },
+  {
+   "maker": "Zyxel",
+   "product": "P660HN-T1A Routers",
+   "cve": "CVE-2017-18368",
+   "added": "2023-08-07",
+   "ransomware": false,
+   "models": [
+    "P660HN"
+   ]
+  },
+  {
+   "maker": "Zyxel",
+   "product": "Multiple Firewalls",
+   "cve": "CVE-2023-33009",
+   "added": "2023-06-05",
+   "ransomware": false,
+   "models": [
+    "USG20"
+   ]
+  },
+  {
+   "maker": "Zyxel",
+   "product": "Multiple Firewalls",
+   "cve": "CVE-2023-33010",
+   "added": "2023-06-05",
+   "ransomware": false,
+   "models": [
+    "USG20"
+   ]
+  },
+  {
+   "maker": "Zyxel",
+   "product": "Multiple Firewalls",
+   "cve": "CVE-2023-28771",
+   "added": "2023-05-31",
+   "ransomware": false,
+   "models": []
+  },
+  {
+   "maker": "Zyxel",
+   "product": "Multiple Products",
+   "cve": "CVE-2020-29583",
+   "added": "2021-11-03",
+   "ransomware": false,
+   "models": [
+    "NXC2500",
+    "NXC5500"
+   ]
+  }
+ ]
+}
