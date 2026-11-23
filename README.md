@@ -76,7 +76,7 @@ claude mcp add home-net-doctor -- npx -y home-net-doctor@0.1.0
 **Without an AI app**, in a terminal:
 
 ```bash
-npx -y home-net-doctor@0.1.0 check        # connection check, about 15 seconds
+npx -y home-net-doctor@0.1.0 check        # connection check, 10 to 25 seconds
 npx -y home-net-doctor@0.1.0 wifi         # Wi-Fi signal report
 npx -y home-net-doctor@0.1.0 site <url>   # is it this website, or my internet?
 ```
@@ -85,7 +85,7 @@ npx -y home-net-doctor@0.1.0 site <url>   # is it this website, or my internet?
 
 | Tool | What it does | Time |
 | --- | --- | --- |
-| `check_connection` | Pings your router and two public services, tests DNS, looks for a sign-in page, opens one secure connection, checks IPv6 and the Wi-Fi, then gives a verdict and steps. | 10 to 15 s |
+| `check_connection` | Pings your router and two public services, tests DNS, looks for a sign-in page, opens one secure connection, checks IPv6 and the Wi-Fi, then gives a verdict and steps. | 10 to 25 s |
 | `check_wifi` | Signal strength with a plain rating, noise, 2.4 / 5 / 6 GHz band, channel, Wi-Fi standard, link speed, and how crowded the channel is. | a few s |
 | `check_website` | Looks up a site, connects, and asks for its front page. Says whether it is down, refusing, broken, slow, has a certificate problem, or works fine from here. | a few s |
 

@@ -91,6 +91,18 @@ test("internet losses that come from the Wi-Fi leg are not called a second probl
   assert.equal(d2.findings.find((x) => x.area === "internet").level, "problem");
 });
 
+test("a slow router leg with a strong signal does not say 'move closer' (real Mac run on a phone hotspot)", () => {
+  const router = probe([3.8, 45, 99.6, 20, 60, 30, 70, 41, 52, 30]);
+  const inet = { ...probe([47, 120, 204.7, 90, 110, 130, 100, 80, 120, 118]), target: "8.8.8.8", label: "Google" };
+  const d = diagnose(healthy({ router, internet: { best: inet, all: [inet] }, wifi: { ...healthy().wifi, signal: -35, channel: 149 } }));
+  assert.equal(d.verdict.code, "warning_router");
+  assert.match(d.verdict.title, /even though the Wi-Fi signal is strong/);
+  assert.ok(!d.steps.some((s) => /Move closer/.test(s)));
+  assert.ok(d.steps.some((s) => /hotspot/.test(s)));
+  // The internet leg adds about 55 ms of its own, so it is not blamed on the router leg.
+  assert.match(d.findings.find((x) => x.area === "internet").text, /Typical home internet/);
+});
+
 test("the same losses on a cable point at the cable", () => {
   const f = healthy({ router: probe([1, 1, 1, 1, 1, 1], 10), onWifi: false });
   assert.equal(code(f), "local_link");

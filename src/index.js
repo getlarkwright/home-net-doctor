@@ -30,7 +30,7 @@ export const TOOLS = [
     description:
       "Find out why the internet is slow, dropping or not working on this computer, and where the problem is: " +
       "the Wi-Fi, the router, the internet company, DNS (name lookups), a sign-in page, a VPN, or nothing at all. " +
-      "Runs about 10-15 seconds of read-only tests from this computer (pings to the router and to two public " +
+      "Takes about 10 to 25 seconds of read-only tests from this computer (pings to the router and to two public " +
       "services, DNS lookups, one secure connection) and returns a verdict, what to do, and the measurements. " +
       PLAIN,
     inputSchema: { type: "object", properties: {} },
@@ -88,7 +88,7 @@ As an MCP server (what Claude, Cursor and other AI apps run):
   npx -y home-net-doctor
 
 In a terminal:
-  npx -y home-net-doctor check        connection check (about 15 seconds)
+  npx -y home-net-doctor check        connection check (10 to 25 seconds)
   npx -y home-net-doctor wifi         Wi-Fi signal report
   npx -y home-net-doctor site <url>   is it this website or my internet?
 
@@ -101,7 +101,7 @@ const print = (text) => process.stdout.write(text + "\n");
 if (cmd === "--version" || cmd === "-v") print(VERSION);
 else if (cmd === "--help" || cmd === "-h" || cmd === "help") print(HELP);
 else if (cmd === "check") {
-  process.stderr.write("Checking (about 15 seconds)...\n");
+  process.stderr.write("Checking (10 to 25 seconds)...\n");
   print(await TOOLS[0].run({}));
 } else if (cmd === "wifi") print(await TOOLS[1].run({}));
 else if (cmd === "site") {

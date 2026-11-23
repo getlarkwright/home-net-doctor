@@ -32,6 +32,8 @@ const STEP = {
   clock: "Set this computer's date and time to update automatically (in Date & Time settings).",
   filter: "If you use a web filter, parental-control app or security app, turn it off for a minute and check again.",
   again: "If the internet is only slow some of the time, run this check again while it is slow.",
+  busy: "If other devices are streaming, gaming or downloading big files, pause them and check again. A busy network answers slowly.",
+  hotspot: "If this is a phone's hotspot, some delay is normal: phones save power between messages. Keep the phone close by and plugged in.",
   site: "If one website or app is the problem, ask me to check that website.",
 };
 
@@ -76,6 +78,15 @@ export function diagnose(f) {
   const inetReach = Boolean(inet && inet.received > 0);
   const httpsOk = Boolean(f.https?.works);
   const sig = onWifi || wifi.connected ? rateSignal(wifi.signal) : null;
+  const strongSignal = Boolean(onWifi && sig && (sig.word === "strong" || sig.word === "good"));
+  // Steps for a slow or lossy leg to the router, depending on what the Wi-Fi signal says.
+  const localSteps = () => {
+    if (!onWifi) return step("cable", "restartRouter");
+    if (strongSignal) return step("restartRouter", "busy", "hotspot");
+    step("moveCloser");
+    if (wifi.band === "2.4") step("use5");
+    step("restartRouter", "mesh");
+  };
   const crowd = crowding(wifi);
   const yourDns = (f.dns?.servers || []).filter((s) => s.kind === "yours");
   const publicDns = (f.dns?.servers || []).filter((s) => s.kind === "public");
@@ -150,7 +161,7 @@ export function diagnose(f) {
         router.method === "ping" &&
         (router.loss >= R.lossWarn || router.avg >= R.avgWarn) &&
         inet.loss <= router.loss + 0.1 &&
-        inet.avg <= router.avg * 2 + 50;
+        inet.avg - router.avg <= 50;
       add(
         fromLocal ? "warning" : bad ? "problem" : warn ? "warning" : "ok",
         "internet",
@@ -252,15 +263,13 @@ export function diagnose(f) {
   } else if (has("problem", "router")) {
     verdict = {
       code: onWifi ? "wifi" : "local_link",
-      title: onWifi
-        ? "The problem is the Wi-Fi between this computer and your router."
-        : "The problem is the connection between this computer and your router.",
+      title: !onWifi
+        ? "The problem is the connection between this computer and your router."
+        : strongSignal
+          ? "The problem is between this computer and your router. The Wi-Fi signal is strong, so distance is not the cause: the router (or hotspot) is slow to answer."
+          : "The problem is the Wi-Fi between this computer and your router.",
     };
-    if (onWifi) {
-      step("moveCloser");
-      if (wifi.band === "2.4") step("use5");
-      step("restartRouter", "mesh");
-    } else step("cable", "restartRouter");
+    localSteps();
   } else if (!inetReach && !httpsOk) {
     verdict = viaVpn
       ? { code: "vpn_down", title: "Nothing gets through the VPN. Either the VPN is stuck or the internet behind it is down." }
@@ -292,7 +301,11 @@ export function diagnose(f) {
   } else if (findings.some((x) => x.level === "warning")) {
     const top = ["router", "wifi", "internet", "dns", "ipv6", "clock"].find((a) => has("warning", a));
     const titles = {
-      router: onWifi ? "It works, but the Wi-Fi to your router is unsteady, which can make things slow or choppy." : "It works, but the connection to your router is unsteady.",
+      router: !onWifi
+        ? "It works, but the connection to your router is unsteady."
+        : strongSignal
+          ? "It works, but your router (or hotspot) is slow to answer, even though the Wi-Fi signal is strong. That can make things choppy."
+          : "It works, but the Wi-Fi to your router is unsteady, which can make things slow or choppy.",
       wifi: "It works, but the Wi-Fi signal is not great, which can make things slow.",
       internet: "It works, but the internet past your router is a bit slow or unsteady.",
       dns: "It works, but name lookups (DNS) are slow, which makes every new website slow to start.",
@@ -300,17 +313,17 @@ export function diagnose(f) {
       clock: "It works, but this computer's clock is off.",
     };
     verdict = { code: `warning_${top}`, title: titles[top] };
-    if (top === "router" || top === "wifi") {
-      if (onWifi) {
-        step("moveCloser");
-        if (wifi.band === "2.4") step("use5");
-        step("mesh");
-      } else step("cable");
+    if (top === "router") localSteps();
+    if (top === "wifi") {
+      step("moveCloser");
+      if (wifi.band === "2.4") step("use5");
+      step("mesh");
     }
     if (top === "internet") {
       if (viaVpn) step("vpnOff");
       step("restartBoth", "again", "callIsp");
     }
+    if (viaVpn && has("warning", "internet")) step("vpnOff");
     if (has("warning", "dns")) step("dnsSwitch");
     if (has("warning", "ipv6")) step("ipv6");
     if (has("warning", "clock")) step("clock");

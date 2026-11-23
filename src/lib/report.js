@@ -23,7 +23,7 @@ function wifiLine(w) {
   if (w.phy) bits.push(w.phy);
   if (w.rate) bits.push(`${Math.round(w.rate)} Mbps link`);
   const c = crowding(w);
-  if (c !== null) bits.push(`${c} other networks on the same channel`);
+  if (c !== null) bits.push(`${c} other network${c === 1 ? "" : "s"} on the same channel`);
   return `  Wi-Fi${w.iface ? ` (${w.iface})` : ""}: ${bits.join(", ") || "connected"}`;
 }
 
@@ -99,7 +99,7 @@ export function renderWifi(w) {
   const c = crowding(w);
   if (c !== null) {
     const busy = w.band === "2.4" ? c >= 6 : c >= 4;
-    lines.push(`Neighbors: ${c} other networks nearby on the same${w.band === "2.4" ? " or overlapping" : ""} channel${busy ? ", which is crowded. Setting the router's channel to automatic, or picking a quieter one, can help." : "."}`);
+    lines.push(`Neighbors: ${c === 0 ? "no" : c} other network${c === 1 ? "" : "s"} nearby on the same${w.band === "2.4" ? " or overlapping" : ""} channel${busy ? ", which is crowded. Setting the router's channel to automatic, or picking a quieter one, can help." : "."}`);
   } else if (w.neighbors && !w.neighbors.length) {
     lines.push("Neighbors: this computer did not list nearby networks.");
   }
