@@ -103,10 +103,11 @@ It works on macOS, Windows and Linux.
   `cp.cloudflare.com`, and its IPv6 address when you have IPv6) and Google (8.8.8.8). These are pings, DNS
   questions, one plain web request that should come back empty, and one secure connection that is closed
   straight away. The list is in [`src/lib/targets.js`](src/lib/targets.js).
-- **Router check: stays at home.** It sends one UPnP search straight to your router, reads the
-  description your router publishes about itself, and reads this computer's own address table. It never
-  logs into the router and never tries a password. The CISA list is a copy bundled with each version
-  (router makers and models only, refreshed for every release), so nothing is looked up online.
+- **Router check: stays at home.** It sends one UPnP search on your home network (to the router and to
+  the standard UPnP group address), reads the description your router publishes about itself, and reads
+  this computer's own address table. It never logs into the router and never tries a password. The CISA
+  list is a copy bundled with each version (router makers and models only, refreshed for every release),
+  so nothing is looked up online.
 - **Websites: front page only.** `check_website` ignores any path you give it and asks only for `/`, so it
   can't trigger an action on a site or a device.
 - **No network names.** Wi-Fi network names, MAC addresses and your public IP address are never put in

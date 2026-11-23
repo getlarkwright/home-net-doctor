@@ -1,8 +1,9 @@
 // check_router: who made the home router, which model it says it is, whether UPnP is on, and
 // whether that model is on CISA's list of router security holes that criminals are using.
 //
-// Everything stays inside the home network: one UPnP search sent straight to the router, one
-// read of the router's public UPnP description, and this computer's own address table. It never logs into the router and never tries a password.
+// Everything stays inside the home network: one UPnP search (sent straight to the router and to
+// the standard UPnP group address), one read of the router's public UPnP description, and this
+// computer's own address table. It never logs into the router and never tries a password.
 import dgram from "node:dgram";
 import fs from "node:fs";
 import zlib from "node:zlib";
@@ -11,6 +12,9 @@ import net from "node:net";
 
 import { run } from "./run.js";
 import { getInterfaces, getRoutes, tcpConnect } from "./gather.js";
+
+/** The standard UPnP group address (SSDP). Not a host: every UPnP device on the network listens on it. */
+export const SSDP_GROUP = "239.255.255.250";
 
 const KEV = JSON.parse(fs.readFileSync(new URL("../data/router-kev.json", import.meta.url), "utf8"));
 
@@ -103,10 +107,11 @@ export function matchKev(identity, data = KEV) {
 // ---------- gathering -----------------------------------------------------------------------------
 
 /**
- * Asks the router itself for its UPnP announcement (a unicast search, as UPnP 1.1 allows) and keeps
- * only replies from the router's address.
+ * Asks for the router's UPnP announcement, both straight at the router (as UPnP 1.1 allows) and
+ * through the standard group address that older routers only answer on. Only replies from the
+ * router's own address are kept.
  */
-export function ssdpSearch(routerIp, { port = 1900, timeoutMs = 2500 } = {}) {
+export function ssdpSearch(routerIp, { port = 1900, group = SSDP_GROUP, localIp = null, timeoutMs = 2500 } = {}) {
   return new Promise((resolve) => {
     const replies = [];
     const sock = dgram.createSocket({ type: "udp4", reuseAddr: true });
@@ -127,9 +132,16 @@ export function ssdpSearch(routerIp, { port = 1900, timeoutMs = 2500 } = {}) {
       replies.push(parseSsdp(buf.toString("utf8", 0, Math.min(buf.length, 4096))));
     });
     sock.bind(0, () => {
+      try {
+        // Send the group search out of the interface that faces the router, not a VPN.
+        if (group && localIp) sock.setMulticastInterface(localIp);
+      } catch {
+        /* the default interface will do */
+      }
+      const search = (host, st) => Buffer.from(`M-SEARCH * HTTP/1.1\r\nHOST: ${host}:1900\r\nMAN: "ssdp:discover"\r\nMX: 2\r\nST: ${st}\r\n\r\n`);
       for (const st of SEARCH_TARGETS) {
-        const msg = Buffer.from(`M-SEARCH * HTTP/1.1\r\nHOST: ${routerIp}:${port}\r\nMAN: "ssdp:discover"\r\nMX: 2\r\nST: ${st}\r\n\r\n`);
-        sock.send(msg, port, routerIp, () => {});
+        sock.send(search(routerIp, st), port, routerIp, () => {});
+        if (group) sock.send(search(group, st), port, group, () => {});
       }
       setTimeout(finish, timeoutMs).unref?.();
     });
@@ -180,13 +192,18 @@ async function routerMac(ip) {
 
 export async function checkRouter(opts = {}) {
   let routerIp = opts.routerIp;
+  let iface = null;
+  const interfaces = getInterfaces();
   if (!routerIp) {
-    const routes = await getRoutes(getInterfaces());
+    const routes = await getRoutes(interfaces);
     routerIp = routes.router?.ip;
+    iface = routes.router?.iface;
     if (!routerIp) return { found: false, viaVpn: routes.viaVpn };
   }
+  const localIp = interfaces.list.find((a) => a.name === iface && a.family === "IPv4")?.address || null;
   const [replies, mac] = await Promise.all([
-    ssdpSearch(routerIp, { port: opts.ssdpPort }),
+    // A test passes its own port; then only the direct search is sent.
+    ssdpSearch(routerIp, opts.ssdpPort ? { port: opts.ssdpPort, group: null } : { localIp }),
     opts.skipMac ? Promise.resolve(null) : routerMac(routerIp),
   ]);
   const igdReply = replies.find((r) => /InternetGatewayDevice/i.test(`${r.st} ${r.usn}`));
