@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: ['20', '24']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm ci
+      - run: npm test
+      # A real run on each system. Cloud runners have no Wi-Fi and often drop pings, so this checks
+      # that every part runs and reports, not what the verdict is.
+      - name: Connection check on this runner
+        run: node src/index.js check
+      - run: node src/index.js wifi
+      - run: node src/index.js --version
+      - run: npm pack --dry-run

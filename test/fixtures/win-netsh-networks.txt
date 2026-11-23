@@ -1,0 +1,23 @@
+
+Interface name : Wi-Fi
+There are 3 networks currently visible.
+
+SSID 1 : Home Network
+    Network type            : Infrastructure
+    Authentication          : WPA2-Personal
+    Encryption              : CCMP
+    BSSID 1                 : 02:00:00:00:00:01
+         Signal             : 38%
+         Radio type         : 802.11n
+         Band               : 2.4 GHz
+         Channel            : 6
+
+SSID 2 : Neighbor
+    BSSID 1                 : 02:00:00:00:00:02
+         Signal             : 61%
+         Channel            : 4
+
+SSID 3 : Neighbor 5G
+    BSSID 1                 : 02:00:00:00:00:03
+         Signal             : 20%
+         Channel            : 149

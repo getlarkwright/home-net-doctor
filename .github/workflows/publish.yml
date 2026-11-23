@@ -1,0 +1,62 @@
+name: Publish
+
+# Runs when a GitHub release is published: tests, then npm (trusted publishing over OIDC, so no
+# npm token is stored anywhere), then the entry in the official MCP Registry. See RELEASING.md.
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write # lets npm and the MCP Registry confirm the run comes from this repo and this file
+
+jobs:
+  npm:
+    if: ${{ !github.event.release.prerelease }}
+    runs-on: ubuntu-latest
+    steps:
+      # Pinned to commit hashes: this job can publish, so its actions must not move under it.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
+      # Trusted publishing needs npm 11.5.1 or later.
+      - run: npm install -g npm@11.13.0
+      - name: The release tag must match package.json and server.json
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          v=$(node -p 'require("./package.json").version')
+          s=$(node -p 'require("./server.json").version')
+          if [ "$TAG" != "v$v" ] || [ "$s" != "$v" ]; then echo "Tag $TAG, package.json $v and server.json $s must agree"; exit 1; fi
+      - run: npm ci
+      - run: npm test
+      # The first version was published by hand (npm needs the package to exist before a trusted
+      # publisher can be added), so a version already on npm is skipped instead of failing.
+      - name: Publish to npm
+        run: |
+          v=$(node -p 'require("./package.json").version')
+          if npm view "home-net-doctor@$v" version >/dev/null 2>&1; then
+            echo "home-net-doctor@$v is already on npm; skipping"
+          else
+            npm publish
+          fi
+
+  registry:
+    needs: npm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install mcp-publisher (checksum checked)
+        run: |
+          curl -sSfL -o mcp-publisher.tar.gz \
+            https://github.com/modelcontextprotocol/registry/releases/download/v1.8.8/mcp-publisher_linux_amd64.tar.gz
+          echo "09f1fa70ee146b640584274a1a6b2b8a0310b05d4321fa9224e6df6a016d67f4  mcp-publisher.tar.gz" | sha256sum -c -
+          tar xzf mcp-publisher.tar.gz mcp-publisher
+          sudo mv mcp-publisher /usr/local/bin/
+      - name: Publish the server entry
+        run: |
+          mcp-publisher login github-oidc
+          mcp-publisher publish

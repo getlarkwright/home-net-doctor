@@ -1,0 +1,4 @@
+*:44:5220 MHz:540 Mbit/s:78:wlp2s0
+:6:2437 MHz:130 Mbit/s:64:wlp2s0
+:1:2412 MHz:195 Mbit/s:40:wlp2s0
+:44:5220 MHz:270 Mbit/s:30:wlp2s0

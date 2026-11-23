@@ -1,0 +1,50 @@
+{
+  "name": "home-net-doctor",
+  "version": "0.1.0",
+  "description": "Ask your AI why the internet is slow. Checks Wi-Fi, router, internet company and DNS from your own computer and says in plain words where the problem is. Read-only, no admin rights, no telemetry.",
+  "license": "MIT",
+  "author": "Larkwright LLC",
+  "homepage": "https://github.com/getlarkwright/home-net-doctor#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getlarkwright/home-net-doctor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/getlarkwright/home-net-doctor/issues"
+  },
+  "mcpName": "io.github.getlarkwright/home-net-doctor",
+  "type": "module",
+  "bin": {
+    "home-net-doctor": "src/index.js"
+  },
+  "main": "src/index.js",
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "mcp-server",
+    "wifi",
+    "internet",
+    "slow-internet",
+    "network-diagnostics",
+    "troubleshooting",
+    "dns",
+    "router",
+    "home-network",
+    "claude"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test test/parse.test.mjs test/diagnose.test.mjs test/website.test.mjs test/live.test.mjs"
+  }
+}
