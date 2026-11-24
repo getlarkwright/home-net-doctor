@@ -57,6 +57,15 @@ jobs:
           echo "09f1fa70ee146b640584274a1a6b2b8a0310b05d4321fa9224e6df6a016d67f4  mcp-publisher.tar.gz" | sha256sum -c -
           tar xzf mcp-publisher.tar.gz mcp-publisher
           sudo mv mcp-publisher /usr/local/bin/
+      # A just-published npm version can take a minute to show up; the registry checks for it.
+      - name: Wait until npm shows this version
+        run: |
+          v=$(node -p 'require("./package.json").version')
+          for i in $(seq 1 30); do
+            if npm view "home-net-doctor@$v" version >/dev/null 2>&1; then echo "npm has $v"; exit 0; fi
+            sleep 10
+          done
+          echo "npm still does not show $v after 5 minutes"; exit 1
       - name: Publish the server entry
         run: |
           mcp-publisher login github-oidc
