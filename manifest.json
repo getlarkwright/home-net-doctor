@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "home-net-doctor",
   "display_name": "Home Net Doctor",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Ask why the internet is slow. Checks Wi-Fi, router, internet company and DNS from your computer and explains it in plain words.",
   "long_description": "Ask Claude \"why is my internet slow?\" and get a real answer. Home Net Doctor runs quick, read-only tests from your own computer and says where the problem is: your Wi-Fi signal, your router, your internet company, DNS, a sign-in page, a VPN, or one website that is down. Then it says what to do about it.\n\nIt can also check your router: who made it, which model it is, whether UPnP is on, and whether that model is on the US government's list of router security holes that criminals are using (CISA KEV, a copy bundled with each version).\n\nIt changes no settings, needs no admin password, never logs into your router, and sends no telemetry. The connection check contacts only Cloudflare and Google's public services; the Wi-Fi and router checks stay inside your home network.",
   "author": {

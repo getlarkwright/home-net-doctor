@@ -1,6 +1,6 @@
 {
   "name": "home-net-doctor",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Ask your AI why the internet is slow. Checks Wi-Fi, router, internet company and DNS from your own computer and says in plain words where the problem is. Read-only, no admin rights, no telemetry.",
   "license": "MIT",
   "author": "Larkwright LLC",

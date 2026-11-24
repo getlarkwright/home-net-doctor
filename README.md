@@ -58,7 +58,7 @@ You need [Node.js](https://nodejs.org) 20 or newer.
 **Claude Code**
 
 ```bash
-claude mcp add home-net-doctor -- npx -y home-net-doctor@0.2.0
+claude mcp add home-net-doctor -- npx -y home-net-doctor@0.2.1
 ```
 
 **Claude Desktop, Cursor, VS Code and other MCP apps**: add this to the app's MCP settings:
@@ -68,7 +68,7 @@ claude mcp add home-net-doctor -- npx -y home-net-doctor@0.2.0
   "mcpServers": {
     "home-net-doctor": {
       "command": "npx",
-      "args": ["-y", "home-net-doctor@0.2.0"]
+      "args": ["-y", "home-net-doctor@0.2.1"]
     }
   }
 }
@@ -77,10 +77,10 @@ claude mcp add home-net-doctor -- npx -y home-net-doctor@0.2.0
 **Without an AI app**, in a terminal:
 
 ```bash
-npx -y home-net-doctor@0.2.0 check        # connection check, 10 to 25 seconds
-npx -y home-net-doctor@0.2.0 wifi         # Wi-Fi signal report
-npx -y home-net-doctor@0.2.0 site <url>   # is it this website, or my internet?
-npx -y home-net-doctor@0.2.0 router       # router safety check
+npx -y home-net-doctor@0.2.1 check        # connection check, 10 to 25 seconds
+npx -y home-net-doctor@0.2.1 wifi         # Wi-Fi signal report
+npx -y home-net-doctor@0.2.1 site <url>   # is it this website, or my internet?
+npx -y home-net-doctor@0.2.1 router       # router safety check
 ```
 
 ## The four tools
