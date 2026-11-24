@@ -17,6 +17,7 @@ const PROGRAMS = {
   system_profiler: { darwin: ["/usr/sbin/system_profiler"] },
   route: { win32: [`${SYS32}ROUTE.EXE`] },
   netsh: { win32: [`${SYS32}netsh.exe`] },
+  powershell: { win32: [`${SYS32}WindowsPowerShell\\v1.0\\powershell.exe`] },
   nmcli: { linux: ["/usr/bin/nmcli", "/bin/nmcli"] },
   iw: { linux: ["/usr/sbin/iw", "/sbin/iw", "/usr/bin/iw", "/bin/iw"] },
 };

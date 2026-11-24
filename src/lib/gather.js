@@ -16,6 +16,7 @@ import {
   parseMacAirport,
   parseNetshWlan,
   parseNetshNetworks,
+  parseWifiAdapters,
   parseNmcli,
   parseIwLink,
   parseProcWireless,
@@ -126,9 +127,17 @@ export async function getWifi() {
       const r = await run("netsh", ["wlan", "show", "interfaces"], { timeoutMs: 10000 });
       const w = parseNetshWlan(r.stdout + "\n" + r.stderr);
       if (w.error === "location") {
+        // Without location access Windows still says which adapter is the Wi-Fi one (physical
+        // medium 9 = 802.11), so the report can tell Wi-Fi from a cable even without the details.
+        const a = await run(
+          "powershell",
+          ["-NoProfile", "-NonInteractive", "-Command", "Get-NetAdapter | Where-Object { $_.NdisPhysicalMedium -eq 9 -and $_.Status -eq 'Up' } | ForEach-Object { $_.Name }"],
+          { timeoutMs: 15000 },
+        );
         return {
           present: true,
           connected: null,
+          iface: parseWifiAdapters(a.stdout)[0] || null,
           note: "Windows hides Wi-Fi details until location access is on: Settings > Privacy & security > Location, then allow desktop apps.",
         };
       }
@@ -411,7 +420,8 @@ export async function gatherAll() {
     checkIpv6(interfaces),
     getWifi(),
   ]);
-  const onWifi = Boolean(wifi.connected && routes.router && wifi.iface && wifi.iface === routes.router.iface);
+  // connected is null when Windows hides the details; the adapter name still says it is Wi-Fi.
+  const onWifi = Boolean(wifi.connected !== false && routes.router && wifi.iface && wifi.iface === routes.router.iface);
   return {
     platform: PLATFORM,
     seconds: round((now() - started) / 1000, 0),

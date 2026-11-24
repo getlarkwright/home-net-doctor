@@ -131,6 +131,8 @@ export function diagnose(f) {
       if (wifi.noise !== null && wifi.noise !== undefined && wifi.signal - wifi.noise < 20) {
         add("warning", "wifi", `Wi-Fi: a lot of radio noise around (signal only ${wifi.signal - wifi.noise} dB above the noise; 25 or more is comfortable).`);
       }
+    } else if (wifi.note) {
+      add("note", "wifi", wifi.note);
     } else if (wifi.connected) {
       add("note", "wifi", "Wi-Fi: connected, but this computer did not report the signal strength.");
     }

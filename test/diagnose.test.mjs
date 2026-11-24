@@ -175,6 +175,17 @@ test("broken IPv6, a skewed clock and a VPN are reported", () => {
   assert.match(d.steps[0], /VPN/);
 });
 
+test("Windows without location access: still on Wi-Fi, with the note (real Justin laptop run)", () => {
+  const note = "Windows hides Wi-Fi details until location access is on: Settings > Privacy & security > Location, then allow desktop apps.";
+  const f = healthy({ platform: "win32", wifi: { present: true, connected: null, iface: "wlan0", note } });
+  const text = renderConnection(f);
+  assert.match(text, /\(Windows, on Wi-Fi;/);
+  assert.ok(diagnose(f).findings.some((x) => x.area === "wifi" && x.text === note));
+  // And Wi-Fi advice, not cable advice, when the leg to the router is bad.
+  const bad = diagnose({ ...f, router: probe([1, 1, 1, 1, 1, 1], 10) });
+  assert.equal(bad.verdict.code, "wifi");
+});
+
 test("signal rating and channel crowding", () => {
   assert.equal(rateSignal(-48).word, "strong");
   assert.equal(rateSignal(-70).word, "fair");

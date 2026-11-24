@@ -205,6 +205,17 @@ export function parseNetshWlan(text) {
   };
 }
 
+/**
+ * Names of the Wi-Fi adapters, from PowerShell's adapter list (one name per line). Windows hands this
+ * out without location access, unlike the Wi-Fi details themselves.
+ */
+export function parseWifiAdapters(text) {
+  return String(text)
+    .split(/\r?\n/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
 /** Windows `netsh wlan show networks mode=bssid` -> channels of nearby access points. */
 export function parseNetshNetworks(text) {
   const out = [];

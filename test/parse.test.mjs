@@ -18,6 +18,7 @@ import {
   parseProcWireless,
   freqToChannel,
   percentToDbm,
+  parseWifiAdapters,
 } from "../src/lib/parse.js";
 
 const fx = (name) => fs.readFileSync(new URL(`./fixtures/${name}`, import.meta.url), "utf8");
@@ -124,6 +125,11 @@ test("Wi-Fi: Windows English", () => {
 test("Wi-Fi: Windows location permission and no Wi-Fi service", () => {
   assert.deepEqual(parseNetshWlan(fx("win-netsh-location.txt")), { present: true, error: "location" });
   assert.deepEqual(parseNetshWlan(fx("win-netsh-nosvc.txt")), { present: false });
+});
+
+test("Wi-Fi: Windows adapter names from PowerShell", () => {
+  assert.deepEqual(parseWifiAdapters("Wi-Fi\r\n\r\n"), ["Wi-Fi"]);
+  assert.deepEqual(parseWifiAdapters(""), []);
 });
 
 test("Wi-Fi: Windows nearby networks", () => {
